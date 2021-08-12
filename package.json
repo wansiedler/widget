@@ -1,0 +1,73 @@
+{
+  "name": "UIWI",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev:react": "NODE_ENV=development BROWSER=none SKIP_PREFLIGHT_CHECK=true TSC_COMPILE_ON_ERROR=true react-scripts start",
+    "dev:preact": "cross-env NODE_ENV=development preact watch --no-sw",
+    "dev:webpack": "cross-env NODE_ENV=development webpack serve --config webpack.config.ts --inline --hot --progress",
+    "analyze:react": "source-map-explorer 'build/static/js/*.js'",
+    "analyze:preact": "preact build --no-prerender --no-esm  --verbose --analyze",
+    "build:preact": "preact build --no-prerender --no-esm  --verbose",
+    "build:react": "react-scripts build",
+    "build:webpack": "rm ./dist; webpack --mode production",
+    "eject:react": "react-scripts eject",
+    "lint": "eslint src",
+    "test:jest": "jest",
+    "test:react": "react-scripts test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@reduxjs/toolkit": "^1.6.1",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^16.4.10",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-idle-timer": "^4.6.4",
+    "react-range": "^1.8.9",
+    "react-redux": "^7.2.4",
+    "react-scripts": "4.0.3",
+    "redux": "^4.1.0",
+    "redux-thunk": "^2.3.0",
+    "source-map-explorer": "^2.5.2",
+    "typescript": "^4.1.2",
+    "web-vitals": "^2.1.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "rules": {
+      "react-hooks/rules-of-hooks": 0,
+      "array-callback-return": 0,
+      "react-hooks/exhaustive-deps": 0,
+      "import/no-anonymous-default-export": 0,
+      "jsx-a11y/alt-text": 0,
+      "no-unused-expressions": "off",
+      "@typescript-eslint/no-unused-expressions": "off",
+      "@typescript-eslint/ban-ts-comment": "off",
+      "no-unused-vars": 0,
+      "@typescript-eslint/no-unused-vars": 0,
+      "jsx-a11y/anchor-is-valid": 0,
+      "no-template-curly-in-string": 0
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

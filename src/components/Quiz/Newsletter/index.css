@@ -1,0 +1,44 @@
+.container {
+    padding: 100px;
+}
+
+.message {
+    font-size: 10px;
+    padding: 0;
+    margin: 0;
+}
+
+.success {
+    color: blue;
+}
+
+.error {
+    color: red;
+}
+
+p {
+    margin: 5px
+}
+
+input.email-input {
+    padding: 10px 0 5px 10px;
+    margin: 20px auto 0;
+    display: block;
+    vertical-align: middle;
+    width: 96%;
+    border-radius: 0;
+    border: 1px solid gray;
+    height: 25px;
+}
+
+.transparent {
+    width: 30%;
+    background: transparent;
+    border: 2px solid #168ACC;
+    color: black;
+}
+
+.transparent:hover {
+    background-color: #0B567C;
+    color: white;
+}
