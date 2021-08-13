@@ -10,9 +10,10 @@ import {GlobalCtx, StoriesContext as StoriesContextInterface} from '../interface
 import {useDispatch, useSelector} from "react-redux";
 import {QuizState, RootState} from "../../store/store";
 import {error, log} from "../../util";
-import {idle, nextStory, prevStory} from "../../store/actions/quizzes";
+import {noContinuation, nextStory, prevStory} from "../../store/actions/quizzes";
 import Quiz from "../renderers/Quiz";
 import {PREVIOUS_INDEX} from "../../store/actions/action-types";
+
 
 export default function () {
     const [currentId, setCurrentId] = useState<number>(0)
@@ -36,36 +37,15 @@ export default function () {
 
     const {
         currentIndex,
-        finished
+        finished,
+        interactive
     }: QuizState = useSelector((state: RootState) => state.quiz);
     // const stories = useSelector(state => state.quiz.stories);
     const dispatch = useDispatch();
 
 
-    let idleTimer = null
 
-    const handleOnIdle = event => {
-        dispatch(idle())
-        // console.log('user is idle', event)
-        // console.log('last active', getLastActiveTime())
-    }
 
-    const handleOnActive = event => {
-        // console.log('user is active', event)
-        // console.log('time remaining', getRemainingTime())
-    }
-
-    const handleOnAction = event => {
-        // console.log('user did something', event)
-    }
-
-    // const {getRemainingTime, getLastActiveTime} = useIdleTimer({
-    //     timeout: 1000 * 20,
-    //     onIdle: handleOnIdle,
-    //     onActive: handleOnActive,
-    //     onAction: handleOnAction,
-    //     // debounce: 500
-    // })
 
     useEffect(() => {
         if (typeof currentIndex === 'number') {
@@ -136,9 +116,6 @@ export default function () {
         // prevStory()
         // setCurrentIdWrapper(prev => prev > 0 ? prev - 1 : prev)
     }
-
-    //TODO
-    //add green color when the interaction should bring the user to the next slide
 
     const next = () => {
         dispatch(nextStory());
@@ -215,6 +192,7 @@ export default function () {
         // -webkit-tap-highlight-color: rgba(0,0,0,0);
     }
 
+
     // log(currentIndex)
     return (
         <div style={{...storyContainerStyles, ...styles.container, ...{width, height}}}>
@@ -243,28 +221,26 @@ export default function () {
             {/*</div>*/}
             {!finished && (
                 <div id='controls'>
-
-
                     {currentIndex > 0 && (
                         <button className="navButton icon__left"
                                 style={{
                                     left: 0,
                                     borderRadius: '0px 40px 40px 0px'
                                 }}
-                                onTouchStart={debouncePause}
-                                onMouseDown={debouncePause}
+                            // onTouchStart={debouncePause}
+                            // onMouseDown={debouncePause}
                                 onTouchEnd={mouseUp('previous')}
                                 onMouseUp={mouseUp('previous')}
                         />)}
 
                     {currentIndex < stories.length - 1 && (
-                        <button className="navButton icon__right"
+                        <button className={`navButton icon__right ${interactive ? "interactive" : ""}`}
                                 style={{
                                     right: 0,
                                     borderRadius: '40px 0px 0px 40px'
                                 }}
-                                onTouchStart={debouncePause}
-                                onMouseDown={debouncePause}
+                            // onTouchStart={debouncePause}
+                            // onMouseDown={debouncePause}
                                 onTouchEnd={mouseUp('next')}
                                 onMouseUp={mouseUp('next')}
                         />)}

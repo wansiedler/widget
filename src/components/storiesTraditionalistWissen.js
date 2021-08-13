@@ -21,7 +21,7 @@ import {restart} from "./store/actions/quizzes";
 import {useDispatch} from "react-redux";
 import {Newsletter} from "./Quiz/Newsletter/Newsletter";
 import {NewsletterQuiz} from "./Quiz/Newsletter/NewsletterQuiz";
-import {LabelResult} from "./Quiz/LabelResult";
+import {ResultLabel} from "./Quiz/ResultLabel";
 
 export const traditionalWissenStories = [
     // {
@@ -99,13 +99,9 @@ export const traditionalWissenStories = [
         choiceAmount: 1,
         finished: false,
         question: "Hier ist ihr Ergebnis! Danke für die Teilnahme.",
-        subtext: '',
-        choices: [
-            'Globales Wissensergebnis: Im Vergleich zu unseren Lesern sind 20% besser als Sie',
-            // 'Detailliertes Ergebnis: Aufschlüsselung der Ergebnisse',
-        ],
+        subtext: 'Globales Wissensergebnis: Im Vergleich zu unseren Lesern sind 20% besser als Sie',
         content: ({config, messageHandler, action, isPaused, onAnswer, story}) => {
-            return <LabelResult
+            return <ResultLabel
                 story={story}
             />
         }

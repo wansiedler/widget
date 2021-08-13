@@ -10,6 +10,7 @@ const NEXT_UNANSWERED = 'NEXT_UNANSWERED';
 const FINISH = 'FINISH';
 const ANSWERED = 'ANSWERED';
 const IDLE = 'IDLE';
+const INTERACTIVE = 'INTERACTIVE';
 export {
     GET_QUIZZES,
     GET_RESULTS,
@@ -22,7 +23,8 @@ export {
     IDLE,
     ANSWERED,
     NEXT_INDEX,
-    PREVIOUS_INDEX
+    PREVIOUS_INDEX,
+    INTERACTIVE
 }
 
 

@@ -117,6 +117,7 @@ export const traditionalAlterStories = [
     },
     {
         type: 'quiz',
+        name:'age',
         choiceAmount: 1,
         finished: false,
         question: "Interessiert wie es in Ihrer Altersgruppe aussieht?",

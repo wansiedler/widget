@@ -39,7 +39,7 @@ const Slider: React.FC<{ rtl: boolean, onEnd: Function }> = ({rtl, onEnd}) => {
                     onFinalChange={value => {
                         console.log(value)
                         // setValues(value)
-                        onEnd(value)
+                        onEnd('stimme', value)
                     }
                     }
                     onChange={(values) => {

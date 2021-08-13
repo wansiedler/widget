@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import {getRandomInt} from "../util";
 import {Logo} from "../Logo";
+import {Selects} from "./Selects";
 
 export const SimpleQuiz = ({story, content, onAnswer}) => {
     const [completed, setCompleted] = useState([0]);
@@ -19,14 +20,15 @@ export const SimpleQuiz = ({story, content, onAnswer}) => {
                     padding: 0,
                     margin: 0,
                     marginTop: 5,
-                    // position: "relative",
                     position: "absolute",
                     top: 170,
-                    left: 115
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)'
                 }}
-            ><span>
-                        (Example with {story.choiceAmount} selects: {story.choiceAmount - answered} option{story.choiceAmount - answered > 1 ? "s" : ""} left)
-                    </span>
+            ><Selects
+                choiceAmount={story.choiceAmount}
+                answered={answered}
+            />
             </p>
             }
 

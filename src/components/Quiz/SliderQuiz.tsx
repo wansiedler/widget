@@ -38,24 +38,24 @@ export const SliderQuiz = ({action, story, content, onAnswer, ...props}) => {
         </div>
 
         {story.subtext && <div
-
             style={{
                 width: 290,
                 textAlign: 'center',
-                margin: '0 auto'
+                margin: '0 auto',
+                marginTop: 20
             }}
         >{story.subtext}</div>}
         {props.subtext && <div
             style={{
                 width: 290,
                 textAlign: 'center',
-                margin: '0 auto'
+                margin: '0 auto',
+                marginTop: 20
             }}
         >{props.subtext}</div>}
         <Slider rtl={false}
                 onEnd={story.onAnswer}
         />
-
         {/*<CircleSlider*/}
         {/*    circleColor={"#000"}*/}
         {/*    size={250}*/}

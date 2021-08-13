@@ -4,6 +4,8 @@ import {Logo} from "../Logo";
 import SliderNoThumb from "../Marks/SliderNoThumb";
 import Slider from "../Marks/Slider";
 import {useDispatch, useSelector} from "react-redux";
+import ProgressBar from "../ProgressBar/ProgressBar";
+import {Selects} from "./Selects";
 
 export const SimpleInlineQuiz = ({story, content, onAnswer}) => {
     const [completed, setCompleted] = useState([2]);
@@ -28,11 +30,10 @@ export const SimpleInlineQuiz = ({story, content, onAnswer}) => {
             </div>
 
             {story.subtext && <p>{story.subtext}</p>}
-            {story.choiceAmount > 1 && <p><span><br/>
-                        (Example with 2 selects: {story.choiceAmount - answered} option{story.choiceAmount - answered > 1 ? "s" : ""} left)
-                    </span>
-            </p>
-            }
+            <Selects
+                choiceAmount={story.choiceAmount}
+                answered={answered}
+            />
 
             <div
                 style={{
@@ -48,18 +49,35 @@ export const SimpleInlineQuiz = ({story, content, onAnswer}) => {
                         key={idx}
                         htmlFor={item}
                         className="label_inline"
-                        onClick={(event) => story.onAnswer(story.id, item, story.choiceAmount, answered, setAnswered)}
+                        onClick={(event) => story.onAnswer(story.name || story.id, item, story.choiceAmount, answered, setAnswered)}
                     >
                         <input type="radio" key={item} value={item}
                                hidden={true}
                         />{item}</label>
                 ))}
             </div>
-            <div>
-                <SliderNoThumb
-                    values={completed}
-                    rtl={false}
-                />
+            <div className='compact'>
+                {
+                    ['20-29',
+                        '30-39',
+                        '40-49',
+                        '50-59',
+                        '60-69'
+                    ].map((item, key) => (
+                        <div
+                            key={key}
+                        >
+                            <span
+                                className='tab'
+                            >{item}</span>
+                            <ProgressBar/>
+                        </div>
+
+                    ))}
+                {/*<SliderNoThumb*/}
+                {/*    values={completed}*/}
+                {/*    rtl={false}*/}
+                {/*/>*/}
                 {/*<Slider values={completed}/>*/}
             </div>
             {content && content}

@@ -9,7 +9,7 @@ import {
     IDLE,
     FINISH,
     ANSWERED,
-    PREVIOUS_INDEX, NEXT_UNANSWERED
+    PREVIOUS_INDEX, NEXT_UNANSWERED, INTERACTIVE
 } from '../actions/action-types';
 import {QuizQuestion} from "../../Quiz/Fabian/QuizQuestion";
 
@@ -31,7 +31,8 @@ const initialState = {
     stories: [],
     finished: false,
     loop: true,
-    fontSize: 100
+    fontSize: 100,
+    interactive: false
 };
 
 
@@ -127,12 +128,32 @@ export const quizReducer = (state = initialState, action) => {
 
             return newState
 
+
+        case PREVIOUS_INDEX:
+            let prevIndex = state.currentIndex - 1
+            prevIndex = prevIndex > totalIndex ? totalIndex : prevIndex < 0 ? totalIndex : prevIndex
+
+            newState = {
+                ...state,
+                interactive: false,
+                currentIndex: prevIndex
+            }
+            return newState
+
         case NEXT_INDEX:
             let newIndex = state.currentIndex + 1
             newIndex = newIndex > totalIndex ? 0 : newIndex < 0 ? totalIndex : newIndex
             newState = {
                 ...state,
+                interactive: false,
                 currentIndex: newIndex
+            }
+            return newState
+
+        case INTERACTIVE:
+            newState = {
+                ...state,
+                interactive: true
             }
             return newState
 
@@ -155,15 +176,6 @@ export const quizReducer = (state = initialState, action) => {
             }
             return newState
 
-        case PREVIOUS_INDEX:
-            let prevIndex = state.currentIndex - 1
-            prevIndex = prevIndex > totalIndex ? totalIndex : prevIndex < 0 ? totalIndex : prevIndex
-
-            newState = {
-                ...state,
-                currentIndex: prevIndex
-            }
-            return newState
 
         case RESET:
             // state.stories.pop()

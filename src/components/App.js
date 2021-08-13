@@ -18,7 +18,15 @@ import {useEffect} from "react";
 import './App.css';
 import Stories, {WithSeeMore} from './react-insta-stories';
 import {useDispatch, useSelector} from "react-redux";
-import {answer, getQuizzes, idle, nextStory, nextUnansweredStory, postResult} from "./store/actions/quizzes";
+import {
+    answer,
+    getQuizzes,
+    noContinuation,
+    nextStory,
+    nextUnansweredStory,
+    postResult,
+    noReaction
+} from "./store/actions/quizzes";
 import {store} from "./store/store";
 import {QuizQuestion} from "./Quiz/Fabian/QuizQuestion";
 
@@ -63,6 +71,7 @@ export const App = function () {
 
     }
 
+
     useEffect(() => {
         let stories = quiz.questions.map((question) => {
             return {
@@ -103,7 +112,6 @@ export const App = function () {
     }, [quiz.questions])
 
     function onAnswer(name, values, choiceAmount, answered, setAnswered) {
-        // event.preventDefault();
         if (choiceAmount > 1) {
             setAnswered(answered + 1)
             if (answered + 1 < choiceAmount) {
@@ -227,17 +235,41 @@ export const App = function () {
     }
 
 
+    let idleTimer = null
+    const handleOnIdle = event => {
+        if (quiz.stories.length > 1) {
+            console.log(quiz.stories.length)
+            quiz.answeredQuestions.length ? dispatch(noContinuation()) : dispatch(noReaction())
+        }
+    }
+    const handleOnActive = event => {
+        // console.log('user is active', event)
+        console.log('time remaining', getRemainingTime())
+    }
+    const handleOnAction = event => {
+        // console.log('user did something', event)
+    }
+    const {getRemainingTime, getLastActiveTime} = useIdleTimer({
+        timeout: 1000 * 15,
+        onIdle: handleOnIdle,
+        onActive: handleOnActive,
+        onAction: handleOnAction,
+        debounce: 500
+    })
+
     return (
         <div className="App" id='App'>
+            <IdleTimer
+                ref={ref => {
+                    idleTimer = ref
+                }}
+                timeout={1000 * 15}
+                onAction={handleOnAction}
+                onActive={handleOnActive}
+                onIdle={handleOnIdle}
+                debounce={250}
+            />
             <div className="stories">
-                {/*<IdleTimer*/}
-                {/*    ref={ref => { idleTimer = ref }}*/}
-                {/*    timeout={1000 * 3}*/}
-                {/*    onActive={handleOnActive}*/}
-                {/*    onIdle={handleOnIdle}*/}
-                {/*    onAction={handleOnAction}*/}
-                {/*    debounce={250}*/}
-                {/*/>*/}
                 {quiz.stories !== undefined && quiz.stories.length > 0 &&
                 (<Stories
                     // loop={quiz.loop}

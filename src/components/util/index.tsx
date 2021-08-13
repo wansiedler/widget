@@ -86,3 +86,7 @@ export const helpFetch = async (url, headers = {
 export const getRandomInt = (max, min = 0) => {
     return Math.floor(Math.random() * (max - min) + min)
 }
+
+export function Sleep(milliseconds) {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+}

@@ -6,7 +6,7 @@
     /*font-family: Georgia, serif;*/
     font-weight: 300;
     /*font: 22px/28px Georgia, serif;*/
-    font: 22px/28px Arial, serif;
+    font-family: Arial, serif;
     /*font: normal normal 300 22px/35px Merriweather;*/
     /*letter-spacing: 0px;*/
     filter: drop-shadow(0 20px 30px #aaa);
@@ -31,6 +31,10 @@
     -moz-border-radius-topright: 15px;
     border-top-left-radius: 0;
     border-top-right-radius: 15px;
+}
+
+.compact .tab {
+    margin-top: 0px;
 }
 
 span {
@@ -114,6 +118,7 @@ a, label, button {
     color: #484848;
     width: 100%;
     height: 100%;
+
 }
 
 .question {
@@ -151,13 +156,15 @@ h3, h2 {
     background-color: #D9D2BF;
     margin: 0 auto;
     color: #000;
-    /*width: 380px;*/
-    width: 400px;
-    height: 380px;
+    width: 440px;
+    height: 420px;
     text-align: center;
     vertical-align: center;
     font-weight: normal;
     clip-path: ellipse(50% 50% at 50% 50%);
+    position: absolute;
+    top: 50%;
+    transform: translateX(-20px) translateY(-50%);
 }
 
 .circleQuestion .label {
@@ -214,6 +221,20 @@ h3, h2 {
 
 .navButton:active {
     opacity: 0.9;
+}
+
+.interactive {
+    opacity: 0.8;
+    /*transition: opacity 0.3s, visibility 0.3s;*/
+    background: #84BF03;
+    filter: drop-shadow(0 5px 5px #aaa);
+    animation: blinker 2s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
 }
 
 

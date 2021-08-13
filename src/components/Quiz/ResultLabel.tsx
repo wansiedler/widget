@@ -3,39 +3,44 @@ import ProgressBar from "../ProgressBar/ProgressBar";
 import {Logo} from "../Logo";
 import {getRandomInt} from "../util";
 import RoundProgressBar from "../ProgressBar/RoundProgressBar";
+import {Selects} from "./Selects";
+import {interactive} from "../store/actions/quizzes";
+import {useDispatch} from "react-redux";
 
-export const LabelResult = ({story, content, ...props}) => {
+export const ResultLabel = ({story, content, ...props}) => {
     const [completed, setCompleted] = useState([0]);
     const [answered, setAnswered] = useState(0);
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        setTimeout(() => {
+            dispatch(interactive())
+        }, 1000)
+    }, []);
+
     return (
         <div className="quiz">
             <div>
                 <div className="question">
                     <h3>{story.question}</h3>
                 </div>
-
-                {story.subtext && <p>{story.subtext}</p>}
-                {props.subtext && <div
+                {story.subtext && <div
+                    className="label_ergebnis"
                     style={{
                         width: 290,
                         textAlign: 'center',
-                        margin: '0 auto'
+                        margin: '0 auto',
+                        marginTop: 20
                     }}
-                >{props.subtext}</div>}
-                {story.choiceAmount > 1 && <p><span><br/>
-                        (Example with 2 selects: {story.choiceAmount - answered} option{story.choiceAmount - answered > 1 ? "s" : ""} left)
-                    </span>
-                </p>
-                } {story.choices && story.choices.map((item, idx) => (
-                <span
-                    id={item}
-                    key={idx}
-                    className="label_ergebnis"
-                    onClick={(event) => story.onAnswer(story.id, item, story.choiceAmount, answered, setAnswered)}
                 >
-                    {item}
-                </span>
-            ))}
+                    {story.subtext}
+                </div>}
+
+                <Selects
+                    choiceAmount={story.choiceAmount}
+                    answered={answered}
+                />
+
                 {
                     [
                         'Bereich A',
@@ -46,11 +51,11 @@ export const LabelResult = ({story, content, ...props}) => {
                             key={key}
                         >
                             <span
-                            style={{
-                                display: "inline-block",
-                                textAlign: "left",
-                                marginTop: 20
-                            }}
+                                style={{
+                                    display: "inline-block",
+                                    textAlign: "left",
+                                    marginTop: 20
+                                }}
                             >{item}</span>
                             <RoundProgressBar
                                 completed={getRandomInt(100)}
@@ -64,5 +69,5 @@ export const LabelResult = ({story, content, ...props}) => {
             </div>
             <Logo/>
         </div>
-)
+    )
 }

@@ -6,7 +6,9 @@ import {
     RESET,
     PREVIOUS_INDEX,
     SET_INDEX,
-    GET_RESULTS, IDLE
+    GET_RESULTS,
+    IDLE,
+    INTERACTIVE
 } from './action-types';
 import {NoReaction} from "../../Quiz/NoReaction";
 import React from "react";
@@ -71,7 +73,7 @@ let getAxios = (url) => {
 export const getQuizzes = (url, id) => async (dispatch, getState) => {
     const widgetUrl = `${url}/${id}`;
     // const response = await getFetch(widgetUrl);
-    const response = await helpFetch(widgetUrl, );
+    const response = await helpFetch(widgetUrl,);
 
     dispatch({
         type: GET_QUIZZES,
@@ -80,6 +82,7 @@ export const getQuizzes = (url, id) => async (dispatch, getState) => {
 };
 
 export const answer = (name, value) => (dispatch, getState) => {
+    console.log(`${name} ${value}`)
     dispatch({
         type: ANSWERED,
         payload: {
@@ -90,14 +93,14 @@ export const answer = (name, value) => (dispatch, getState) => {
 };
 
 
-export const idle = () => (dispatch, getState) => {
+export const noContinuation = () => (dispatch, getState) => {
     dispatch({
         type: IDLE,
         payload: {
             type: 'quiz',
             choiceAmount: 1,
             finished: false,
-            question: "Sie erstellen grade ihr individuelles Quiz.",
+            question: "Sie sind fast fertig mit ihrem Quiz.",
             subtext: '',
             choices: [],
             content: ({config, messageHandler, action, isPaused, onAnswer, story}) => {
@@ -154,9 +157,15 @@ export const firstStory = () => (dispatch, getState) => {
 
 
 export const nextStory = () => (dispatch, getState) => {
-    log('next')
+    // log('next')
     dispatch({
         type: NEXT_INDEX,
+    })
+};
+
+export const interactive = () => (dispatch, getState) => {
+    dispatch({
+        type: INTERACTIVE,
     })
 };
 
